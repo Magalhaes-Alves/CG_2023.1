@@ -33,6 +33,36 @@ class Window:
 
         pygame.gfxdraw.pixel(self.screen,x,y,color)
 
+    def ddaLine(self,xi,yi,xf,yf,color):
+
+        dx = xf-xi
+        dy= yf-yi
+        
+        steps = abs(dx)
+
+        if steps==0:
+            self.setPixel(xi,xf,color)
+            return
+        
+        if abs(dy)> abs(dx):
+            steps = abs(dy)
+
+        steps_x =dx/steps
+        steps_y = dy/steps
+
+        for i in range(steps):
+            x= round(xi+i*steps_x)
+            y = round(yi+i*steps_y)
+            self.setPixel(x,y,color)
+
+    def drawLine(self,xi,yi,xf,yf,color,alg=True):
+
+        if not alg:
+            pass
+        else:
+            self.ddaLine(xi,yi,xf,yf,color)
+
+
     def drawCircle(self,xc,yc,r,color):
         
         x=0
