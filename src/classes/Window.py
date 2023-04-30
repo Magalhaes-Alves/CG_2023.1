@@ -47,6 +47,9 @@ class Window:
         if abs(dy)> abs(dx):
             steps = abs(dy)
 
+        if steps==0:
+            self.setPixel(xi,xf,color)
+            return
         steps_x =dx/steps
         steps_y = dy/steps
 
