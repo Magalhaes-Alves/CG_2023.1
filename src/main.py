@@ -6,11 +6,20 @@ janela = Window(500,500,"Teste")
 
 janela.drawCircle(250,250,70,(255,255,255))
 
-"""janela.bresenham(10, 10, 200, 200, (255, 255, 255))
+janela.bresenham(10, 10, 200, 200, (255, 255, 255))
 janela.bresenham(10, 10, 200, 10, (255, 255, 255))
 janela.bresenham(10, 10, 10, 200, (255, 255, 255))
 janela.bresenham(10, 10, 200, 90, (255, 255, 255))
-janela.bresenham(10, 10, 90, 200, (255, 255, 255))"""
+janela.bresenham(10, 10, 90, 200, (255, 255, 255))
+
+
+""" janela.ddaLine(10, 10, 200, 200, (255, 255, 255))
+janela.ddaLine(10, 10, 200, 10, (255, 255, 255))
+janela.ddaLine(10, 10, 10, 200, (255, 255, 255))
+janela.ddaLine(10, 10, 200, 90, (255, 255, 255))
+janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
+ """
+
 
 janela.show()
 

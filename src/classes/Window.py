@@ -38,6 +38,34 @@ class Window:
 
         pygame.gfxdraw.pixel(self.screen,x,y,color)
 
+    def ddaLine(self,xi,yi,xf,yf,r,g=None,b=None):
+        if g is None and b is None:
+            color = r
+        else:
+            color = (r, g, b)
+
+
+        dx = xf -xi;
+        dy = yf-yi;
+
+        steps = abs(dx);
+
+        if (abs(dy)> abs(dx)):
+            steps=abs(dy)
+            
+        if (steps ==0):
+            self.setPixel(xi,yi,color);
+            return
+
+        steps_x = dx/steps;
+        steps_y = dy/steps;
+
+        for s in range(steps):
+            x = round(xi +s*steps_x)
+            y = round(yi +s*steps_y)
+            
+            self.setPixel(x,y,color)
+
     def bresenham(self, xi, yi, xf, yf, r, g=None, b=None):
         if g is None and b is None:
             color = r
