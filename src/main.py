@@ -1,16 +1,14 @@
-import pygame
-from pygame import gfxdraw;
-
-def setPixel(img, x,y,color):
-    pygame.gfxdraw.pixel(img,x,y,color)
 from classes.Window import Window
 
 janela = Window(500,500,"Teste")
 
-janela.setPixel(250,250,(255,255,255))
-janela.setPixel(-1,-1,(255,255,255))
-janela.setPixel(500,500,(255,255,255))
+janela.drawEllipse(250, 250, 100, 100, (255, 255, 255))
 
+"""janela.bresenham(10, 10, 200, 200, (255, 255, 255))
+janela.bresenham(10, 10, 200, 10, (255, 255, 255))
+janela.bresenham(10, 10, 10, 200, (255, 255, 255))
+janela.bresenham(10, 10, 200, 90, (255, 255, 255))
+janela.bresenham(10, 10, 90, 200, (255, 255, 255))"""
 
 
 
