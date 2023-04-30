@@ -23,26 +23,41 @@ class Window:
     def height(self):
         return self._height
 
-
-
-    def setPixel(self,x,y,r,g,b):
-
-        x= 0 if x<0 else x
-        y = 0 if y<0 else y
-        x= self.width-1 if x>self.width else x
-        y = self.height if y>self.height else y
-
-        pygame.gfxdraw.pixel(self.screen,x,y,(r,g,b))
-    
+    # color é uma tupla com rgba
     def setPixel(self,x,y,color):
 
         x= 0 if x<0 else x
         y = 0 if y<0 else y
         x= self.width-1 if x>=self.width else x
         y = self.height-1 if y>=self.height else y
-        print(x,y)
 
         pygame.gfxdraw.pixel(self.screen,x,y,color)
+
+    def drawCircle(self,xc,yc,r,color):
+        
+        x=0
+        y=r
+
+        p = 5/4 -r
+
+        while(x<y):
+
+            self.setPixel(x+xc,y+yc,color)
+            self.setPixel(y+xc,x+yc,color)
+            self.setPixel(y+xc,-x+yc,color)
+            self.setPixel(x+xc,-y+yc,color)
+            self.setPixel(-x+xc,-y+yc,color)
+            self.setPixel(-y+xc,-x+yc,color)
+            self.setPixel(-y+xc,x+yc,color)
+            self.setPixel(-x+xc,y+yc,color)
+
+            x+=1
+            if p<0:
+                p=p+2*x+1
+            else:
+                y-=1
+                p =p+2*x+1-2*y
+
 
     def show(self):
         while(True):
