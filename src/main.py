@@ -3,20 +3,16 @@ from pygame import gfxdraw;
 
 def setPixel(img, x,y,color):
     pygame.gfxdraw.pixel(img,x,y,color)
+from classes.Window import Window
 
-def main():
-    pygame.init();
-    pygame.display.set_caption("Set Pixel")
-    screen = pygame.display.set_mode((100,100))
-    WHITE =(255,255,255)
-    setPixel(screen,50,50,WHITE)
+janela = Window(500,500,"Teste")
 
-    while(True):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-        pygame.display.update()
+janela.setPixel(250,250,(255,255,255))
+janela.setPixel(-1,-1,(255,255,255))
+janela.setPixel(500,500,(255,255,255))
 
-if __name__=="__main__":
-    main()
+
+
+
+janela.show()
 
