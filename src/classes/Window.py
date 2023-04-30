@@ -86,6 +86,36 @@ class Window:
                 x += x_inc
                 p += dy2
 
+    def drawCircle(self,xc,yc,ray, r, g=None, b=None):
+
+        if g is None and b is None:
+            color = r
+        else:
+            color = (r, g, b)
+
+        x=0
+        y=ray
+
+        p=5/4-ray
+
+        while(x<y):
+            self.setPixel(x+xc,y+yc,color)
+            self.setPixel(y+xc,x+yc,color)
+            self.setPixel(y+xc,-x+yc,color)
+            self.setPixel(x+xc,-y+yc,color)
+            self.setPixel(-x+xc,-y+yc,color)
+            self.setPixel(-y+xc,-x+yc,color)
+            self.setPixel(-y+xc,x+yc,color)
+            self.setPixel(-x+xc,y+yc,color)
+
+            x+=1
+
+            if p<0:
+                p = p+2*x+1
+            else:
+                y-=1
+                p=p+2*x+1-2*y
+
     def drawEllipse(self, xc, yc, rx, ry, r, g=None, b=None):
         if g is None and b is None:
             color = r
