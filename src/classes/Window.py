@@ -27,6 +27,8 @@ class Window:
 
     def setPixel(self,x,y, r, g=None, b=None):
         if g is None and b is None:
+            color = r
+        else:
             color = (r, g, b)
 
         x= 0 if x<0 else x
@@ -38,6 +40,8 @@ class Window:
 
     def bresenham(self, xi, yi, xf, yf, r, g=None, b=None):
         if g is None and b is None:
+            color = r
+        else:
             color = (r, g, b)
         
         swap = False
@@ -84,7 +88,10 @@ class Window:
 
     def drawEllipse(self, xc, yc, rx, ry, r, g=None, b=None):
         if g is None and b is None:
+            color = r
+        else:
             color = (r, g, b)
+        
         x = 0
         y = ry
         rx2 = rx*rx
