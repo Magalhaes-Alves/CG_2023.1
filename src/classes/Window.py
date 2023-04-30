@@ -129,8 +129,10 @@ class Window:
             y -= 1
             py = py - twoRx2
             if p>0:
+                p=p+rx2-py
+            else:
                 x += 1
-                px = px + twoRx2
+                px = px + twoRy2
                 p = p + rx2 - py + px
 
     def show(self):
