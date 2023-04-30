@@ -10,7 +10,5 @@ janela.bresenham(10, 10, 10, 200, (255, 255, 255))
 janela.bresenham(10, 10, 200, 90, (255, 255, 255))
 janela.bresenham(10, 10, 90, 200, (255, 255, 255))"""
 
-
-
 janela.show()
 
