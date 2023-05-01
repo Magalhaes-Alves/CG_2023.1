@@ -1,5 +1,6 @@
 import pygame
 from pygame import gfxdraw
+from math import floor
 
 class Window:
 
@@ -100,6 +101,46 @@ class Window:
             y = round(yi +s*steps_y)
             
             self.setPixel(x,y,color)
+
+    def ddaaaLine(self,xi,yi,xf,yf,r,g=None,b=None,alpha=None):
+        if g is None and b is None and alpha is None:
+            color = list(r)
+        else:
+            color = list(r, g, b,alpha)
+
+        new_alpha =color[3]
+        dx = xf -xi
+        dy = yf-yi
+
+        steps = abs(dx);
+
+        if (abs(dy)> abs(dx)):
+            steps=abs(dy)
+            
+        if (steps ==0):
+            self.setPixel(xi,yi,color);
+            return
+
+        steps_x = dx/steps;
+        steps_y = dy/steps;
+
+        for s in range(steps):
+            x = xi +s*steps_x
+            y = yi +s*steps_y
+        
+            if steps_x ==1:
+                yd = y -floor(y)
+                color[3] =round((1-yd)*new_alpha)
+                self.setPixel(round(x),floor(y),tuple(color))
+                color[3] =round(yd*new_alpha)
+                self.setPixel(round(x),floor(y+1),tuple(color))
+            else:
+                xd = x -floor(x)
+                color[3] =round((1-xd)*new_alpha)
+                self.setPixel(floor(x),floor(y),tuple(color))
+                color[3] =round(xd*new_alpha)
+                self.setPixel(floor(x+1),floor(y),tuple(color))
+
 
     def bresenham(self, xi, yi, xf, yf, r, g=None, b=None):
         if g is None and b is None:
