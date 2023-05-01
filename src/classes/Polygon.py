@@ -91,6 +91,8 @@ class Polygon:
 
             print(y,i,ymin,ymax)
             for pi in range(0,len(i),2):
-                window.bresenham(i[pi]-1,y,i[pi+1],y,color)
+                window.bresenham(i[pi],y,i[pi+1],y,color)
+        
+        self.desenhaPoligono(window, (255,255,255,255))
 
             
