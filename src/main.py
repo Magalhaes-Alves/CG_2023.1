@@ -28,22 +28,16 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 
 """ Teste Polygon """
 
-poligono = Polygon()
+poligono1 = Polygon([[250,250],[450,250],[450,350],[250,350]])
+poligono2 = Polygon([[20,20],[30,30],[10,30]])
 
-poligono.addPoint(10,10)
 
-poligono.addPoint(20,70)
 
-poligono.addPoint(30,80)
+poligono1.desenhaPoligono(janela, (255,255,255,255))
+poligono1.scanline(janela,(255,120,0))
 
-pontos = [[30,20],[70,80],[25,125]]
+poligono2.desenhaPoligono(janela, (255,255,255,255))
+poligono2.scanline(janela,(255,120,0))
 
-pontos2 =[[56,45],[21,43],[13,133]]
-
-poligono.points= pontos
-
-poligono.addPoints(pontos2)
-
-poligono.desenhaPoligono(janela, (255,255,255,255))
 
 janela.show()
