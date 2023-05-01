@@ -1,7 +1,7 @@
 from classes.Window import Window
 from classes.Polygon import Polygon
 
-#janela = Window(500,500,"Teste")
+janela = Window(500,500,"Teste")
 
 #janela.drawEllipse(250, 250, 50, 100, (255, 255, 255))
 
@@ -26,10 +26,6 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 
 #janela.ddaaaLine(100,100,150,150,(255,255,255,255))
 
-#janela.show()
-
-
-
 """ Teste Polygon """
 
 poligono = Polygon()
@@ -48,5 +44,6 @@ poligono.points= pontos
 
 poligono.addPoints(pontos2)
 
-print(poligono.points)
+poligono.desenhaPoligono(janela, (255,255,255))
 
+janela.show()
