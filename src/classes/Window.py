@@ -38,6 +38,41 @@ class Window:
 
         pygame.gfxdraw.pixel(self.screen,x,y,color)
 
+    def getPixel(self, x, y):
+        pixel_color = self._screen.get_at((x, y))
+        rgb_tuple = pixel_color[:3]  # extrai os primeiros 3 valores (R, G, B) da cor
+        rgb_integers = tuple(rgb_tuple)  # converte para uma tupla de inteiros
+
+        return rgb_integers
+    
+    def floodFill(self, x, y, corn, cori):
+        stack = [(x, y)]
+        while stack:
+            x, y = stack.pop()
+            # Checando se x e y estão dentro dos limites
+            if (x >= 0 and x < self._width) and (y > 0 and y < self._height):
+                # Checando se a cor de (x, y) é igual a cori 
+                if self.getPixel(x, y) == cori:
+                    self.setPixel(x, y, corn)
+                    stack.append((x+1, y))
+                    stack.append((x-1, y))
+                    stack.append((x, y+1))
+                    stack.append((x, y-1))
+
+    def boundaryFill(self, x, y, corn, corb):
+        stack = [(x, y)]
+        while stack:
+            x, y = stack.pop()
+            # Checando se x e y estão dentro dos limites
+            if (x >= 0 and x < self._width) and (y > 0 and y < self._height):
+                # Checando se a cor de (x, y) é igual a cori 
+                if self.getPixel(x, y) != corn and self.getPixel(x, y) != corb:
+                    self.setPixel(x, y, corn)
+                    stack.append((x+1, y))
+                    stack.append((x-1, y))
+                    stack.append((x, y+1))
+                    stack.append((x, y-1))
+    
     def ddaLine(self,xi,yi,xf,yf,r,g=None,b=None):
         if g is None and b is None:
             color = r
