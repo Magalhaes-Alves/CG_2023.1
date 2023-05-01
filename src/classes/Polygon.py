@@ -30,9 +30,9 @@ class Polygon:
         y = self.points[0][1]
         
         for i in range(1,rows):
-            janela.ddaLine(x, y, self.points[i][0], self.points[i][1], color)
+            janela.ddaaaLine(x, y, self.points[i][0], self.points[i][1], color)
             x = self.points[i][0]
             y = self.points[i][1]
         
-        janela.ddaLine(x, y, self.points[0][0], self.points[0][1], color)
+        janela.ddaaaLine(x, y, self.points[0][0], self.points[0][1], color)
             

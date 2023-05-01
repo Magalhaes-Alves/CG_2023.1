@@ -44,6 +44,6 @@ poligono.points= pontos
 
 poligono.addPoints(pontos2)
 
-poligono.desenhaPoligono(janela, (255,255,255))
+poligono.desenhaPoligono(janela, (255,255,255,255))
 
 janela.show()
