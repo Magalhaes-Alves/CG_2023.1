@@ -139,8 +139,6 @@ class Polygon:
             if xi >=0:
                 color = self.colorInterpolation(colors[0],colors[-1],t) # Inverti os indices
                 i+=[[xi,color]]
-            print(colors[-1],colors[0])
-            print(y,t,xi,i)
             for pi in range(0,len(i),2):
                 xi,icolor=i[pi]
                 xf,fcolor=i[pi+1]
