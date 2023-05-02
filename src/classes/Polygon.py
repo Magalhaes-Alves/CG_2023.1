@@ -95,7 +95,9 @@ class Polygon:
 
     @classmethod
     def colorInterpolation(cls,icolor,fcolor,p):
-
+        
+        print(icolor,fcolor)
+        print(type(fcolor))
         r = round(abs(fcolor[0]- icolor[0])*p)
         g =round(abs(fcolor[1]- icolor[1])*p)
         b =round(abs(fcolor[2]- icolor[2])*p)
@@ -130,38 +132,30 @@ class Polygon:
                 t,xi= self.intersection(y,[pi,pf])
 
                 if xi>= 0:
-                    color = self.colorInterpolation(color[index-1],color[index],t)
+                    color = self.colorInterpolation(colors[index-1],colors[index],t)
                     i+=[[xi,color]]
 
                 pi=pf
             pf = self.points[0]
+            t,xi = self.intersection(y,[pi,pf])
 
-            _,xi = self.intersection(y,[pi,pf])
             if xi >=0:
-                color = self.colorInterpolation(color[index-1],color[index],t)
+                color = self.colorInterpolation(colors[index-1],colors[index],t)
                 i+=[[xi,color]]
 
-            
+        
             for pi in range(0,len(i),2):
-                print(i)
                 xi,icolor=i[pi]
                 xf,fcolor=i[pi+1]
 
-                inc =1
-                if xi>xf:
-                    inc =-1
+                inc =1 if xi<xf else -1
+                cont=0
+                while (xi+ cont) != xf:
+                    t = abs(inc)/(abs(xf-xi))
+                    color = self.colorInterpolation(icolor,fcolor,t)
 
-                while (xi+ inc) != xf:
-                    p = abs(inc)/(abs(xf-xi))
-                    ri,gi,bi = icolor
-                    rf,gf,bf = fcolor
-                    rp = abs(ri -rf)*p+rf
-                    gp = abs(gi -gf)*p+gf
-                    bp = abs(bi -bf)*p+bf
-
-                    print(xi+inc,y,(rp,gp,bp))
-                    window.setPixel(xi+inc,y,(rp,gp,bp))
-                    inc=+inc
+                    window.setPixel(xi+cont,y,color)
+                    cont+=inc
         
         self.desenhaPoligono(window, (255,255,255,255))
             
