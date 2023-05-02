@@ -45,7 +45,7 @@ class Polygon:
         yf= edge[1][1]
 
         if yi ==yf:
-            return -1
+            return [-1,-1]
         
         #Seta orientação de cima para baixo
         if yi>yf:
@@ -55,9 +55,9 @@ class Polygon:
         t = (scan-yi)/(yf-yi)
 
         if t>0 and t<=1:
-            return int(xi+t*(xf-xi))
+            return [t,int(xi+t*(xf-xi))]
         
-        return -1
+        return [-1,-1]
 
     def scanline(self,window,r,g=None,b=None,alpha=None):
         if g is None and b is None and alpha is None:
@@ -69,14 +69,12 @@ class Polygon:
 
         ymax = max(self.points[:,1])
 
-        
-        
         for y in range(ymin,ymax):
             i=[]
             pi = self.points[0]
             for index in range(1,self.points.shape[0]):
                 pf = self.points[index]
-                xi= self.intersection(y,[pi,pf])
+                _,xi= self.intersection(y,[pi,pf])
 
                 if xi>= 0:
                     i+=[xi]
@@ -85,7 +83,7 @@ class Polygon:
             
             pf = self.points[0]
 
-            xi = self.intersection(y,[pi,pf])
+            _,xi = self.intersection(y,[pi,pf])
             if xi >=0:
                 i +=[xi]
 
@@ -95,4 +93,79 @@ class Polygon:
         
         self.desenhaPoligono(window, (255,255,255,255))
 
+    @classmethod
+    def colorInterpolation(cls,icolor,fcolor,p):
+
+        r = round(abs(fcolor[0]- icolor[0])*p)
+        g =round(abs(fcolor[1]- icolor[1])*p)
+        b =round(abs(fcolor[2]- icolor[2])*p)
+
+        r=  r if icolor[0]<=fcolor[0] else -r
+        g=  g if icolor[1]<=fcolor[1] else -g
+        b=  b if icolor[2]<=fcolor[2] else -b
+        
+
+        r+=icolor[0]
+        g+=icolor[1]
+        b+=icolor[2]
+
+        return (r,g,b)
+    
+
+    def scanlineInterpolacao(self,window,colors):
+        
+        if colors is not None and len(colors)!= self.points.shape[0]:
+            print("O numéro de cores não é o mesmo que de pontos.")
+            return
+
+
+        ymin = min(self.points[:,1])
+        ymax = max(self.points[:,1])
+
+        for y in range(ymin,ymax):
+            i=[]
+            pi = self.points[0] #Primeiro ponto do poligono
+            for index in range(1,self.points.shape[0]): #Para cada aresta
+                pf = self.points[index]
+                t,xi= self.intersection(y,[pi,pf])
+
+                if xi>= 0:
+                    color = self.colorInterpolation(color[index-1],color[index],t)
+                    i+=[[xi,color]]
+
+                pi=pf
+            pf = self.points[0]
+
+            _,xi = self.intersection(y,[pi,pf])
+            if xi >=0:
+                color = self.colorInterpolation(color[index-1],color[index],t)
+                i+=[[xi,color]]
+
             
+            for pi in range(0,len(i),2):
+                print(i)
+                xi,icolor=i[pi]
+                xf,fcolor=i[pi+1]
+
+                inc =1
+                if xi>xf:
+                    inc =-1
+
+                while (xi+ inc) != xf:
+                    p = abs(inc)/(abs(xf-xi))
+                    ri,gi,bi = icolor
+                    rf,gf,bf = fcolor
+                    rp = abs(ri -rf)*p+rf
+                    gp = abs(gi -gf)*p+gf
+                    bp = abs(bi -bf)*p+bf
+
+                    print(xi+inc,y,(rp,gp,bp))
+                    window.setPixel(xi+inc,y,(rp,gp,bp))
+                    inc=+inc
+        
+        self.desenhaPoligono(window, (255,255,255,255))
+            
+
+if __name__=="__main__":
+
+    print(Polygon.colorInterpolation((120,75,200),(150,93,78),0.9))
