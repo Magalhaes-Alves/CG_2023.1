@@ -96,8 +96,6 @@ class Polygon:
     @classmethod
     def colorInterpolation(cls,icolor,fcolor,p):
         
-        print(icolor,fcolor)
-        print(type(fcolor))
         r = round(abs(fcolor[0]- icolor[0])*p)
         g =round(abs(fcolor[1]- icolor[1])*p)
         b =round(abs(fcolor[2]- icolor[2])*p)
@@ -151,7 +149,9 @@ class Polygon:
                 inc =1 if xi<xf else -1
                 cont=0
                 while (xi+ cont) != xf:
-                    t = abs(inc)/(abs(xf-xi))
+                    t = abs(cont)/(abs(xf-xi))
+                    print(icolor,fcolor,t)
+                    
                     color = self.colorInterpolation(icolor,fcolor,t)
 
                     window.setPixel(xi+cont,y,color)
