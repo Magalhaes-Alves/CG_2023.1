@@ -128,19 +128,25 @@ class Polygon:
             for index in range(1,self.points.shape[0]): #Para cada aresta
                 pf = self.points[index]
                 t,xi= self.intersection(y,[pi,pf])
-                if xi>= 0:
-                    color = self.colorInterpolation(colors[index-1],colors[index],t)
+
+                if xi >=0 and pi[1]<=pf[1]:
+                    color = self.colorInterpolation(colors[index-1],colors[index],t) # Inverti os indices
+                    i+=[[xi,color]]
+                elif xi >=0 and pi[1]>pf[1]:
+                    color = self.colorInterpolation(colors[index],colors[index-1],t) # Inverti os indices
                     i+=[[xi,color]]
 
                 pi=pf
             pf = self.points[0]
             t,xi = self.intersection(y,[pi,pf])
 
-            if xi >=0:
+            if xi >=0 and pi[1]<=pf[1]:
+                color = self.colorInterpolation(colors[-1],colors[0],t) # Inverti os indices
+                i+=[[xi,color]]
+            elif xi >=0 and pi[1]>pf[1]:
                 color = self.colorInterpolation(colors[0],colors[-1],t) # Inverti os indices
                 i+=[[xi,color]]
-            print(colors[-1],colors[0])
-            print(y,t,xi,i)
+            
             for pi in range(0,len(i),2):
                 xi,icolor=i[pi]
                 xf,fcolor=i[pi+1]

@@ -41,15 +41,34 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 
 """ Teste scanline Interpolação """
 
-pol1 = Polygon([[250,200],[350,290],[150,290]])
+#pol1 = Polygon([[150,290],[250,200],[350,290]])
 
-pol1.desenhaPoligono(janela,(255,255,255,255))
+#pol1.desenhaPoligono(janela,(255,255,255,255))
+
+#colors = [(255,0,0),
+#          (255,0,0),
+#          (0,0,255)
+#          ]
+
+#pol1.scanlineInterpolacao(janela,colors)
+
+pol2 = Polygon([
+        [250,250],
+        [350,250],
+        [350,350],
+        [250,350]
+        ])
 
 colors = [(255,0,0),
-          (0,255,0),
-          (0,0,255)
+          (255,0,0),
+          (255,0,0),
+          (255,0,0)
           ]
 
-pol1.scanlineInterpolacao(janela,colors)
+pol2.desenhaPoligono(janela,(255,255,255,255))
+
+
+pol2.scanlineInterpolacao(janela,colors)
+
 
 janela.show()
