@@ -1,8 +1,9 @@
 from classes.Window import Window
 from classes.Polygon import Polygon
+from classes.Tranformations import *
+
 
 janela = Window(500,500,"Teste")
-
 #janela.drawEllipse(250, 250, 50, 100, (255, 255, 255))
 
 #janela.drawCircle(250,250,70,(255,255,255))
@@ -53,10 +54,10 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 #pol1.scanlineInterpolacao(janela,colors)
 
 pol2 = Polygon([
-        [250,250],
-        [350,250],
-        [350,350],
-        [250,350]
+        [100,100],
+        [125,100],
+        [125,125],
+        [100,125]
         ])
 
 colors = [(255,0,0),
@@ -65,10 +66,13 @@ colors = [(255,0,0),
           (255,0,0)
           ]
 
+print(pol2.points)
+m = criaTransformacao()
+m = compoeRotacao(m,2)
+aplicaTransformacao(pol2, m)
+print(pol2.points)
+
 pol2.desenhaPoligono(janela,(255,255,255,255))
-
-
 pol2.scanlineInterpolacao(janela,colors)
-
 
 janela.show()
