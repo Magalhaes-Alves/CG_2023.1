@@ -114,6 +114,7 @@ class Polygon:
 
     def scanlineInterpolacao(self,window,colors):
         
+        #Faz a verificação das cores
         if colors is not None and len(colors)!= self.points.shape[0]:
             print("O numéro de cores não é o mesmo que de pontos.")
             return
@@ -123,12 +124,12 @@ class Polygon:
         ymax = max(self.points[:,1])
 
         for y in range(ymin,ymax):
-            i=[]
+            i=[] # Vetor de intersecções
             pi = self.points[0] #Primeiro ponto do poligono
             for index in range(1,self.points.shape[0]): #Para cada aresta
                 pf = self.points[index]
                 t,xi= self.intersection(y,[pi,pf])
-
+                #Caso o algoritmo de intersecção tenha invertido os ponto o t ficar
                 if xi >=0 and pi[1]<=pf[1]:
                     color = self.colorInterpolation(colors[index-1],colors[index],t) # Inverti os indices
                     i+=[[xi,color]]
@@ -137,6 +138,8 @@ class Polygon:
                     i+=[[xi,color]]
 
                 pi=pf
+
+            #Faz a operação acima para a última aresta
             pf = self.points[0]
             t,xi = self.intersection(y,[pi,pf])
 
@@ -147,6 +150,8 @@ class Polygon:
                 color = self.colorInterpolation(colors[0],colors[-1],t) # Inverti os indices
                 i+=[[xi,color]]
             
+            i.sort(key= lambda x:x[0])
+
             for pi in range(0,len(i),2):
                 xi,icolor=i[pi]
                 xf,fcolor=i[pi+1]
