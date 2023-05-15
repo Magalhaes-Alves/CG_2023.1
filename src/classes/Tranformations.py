@@ -37,4 +37,27 @@ def aplicaTransformacao(poligono, m):
         pt = np.transpose(pt)
      
         poligono.points[i] = pt[:2]
+
+def translacao(poligono, tx, ty):
+    m = criaTransformacao()
+
+    m = compoeTranslacao(m, tx, ty)
+    aplicaTransformacao(poligono, m)
+
+def escala(poligono, sx, sy):
+    m = criaTransformacao()
+    # Precisa fazer a translacao antes em relação ao ponto mais proximo da origem(0,0)
+    tx = poligono.points[0][0]
+    ty = poligono.points[0][0]
+    translacao(poligono, -tx, -ty)
+    m = compoeEscala(m, sx, sy)
+    aplicaTransformacao(poligono, m)
+    # Aplica a translação novamente 
+    translacao(poligono, tx, ty)
+
+def rotacao(poligono, ang):
+    m = criaTransformacao()
+    # É necessário transladar o poligono
+    m = compoeRotacao(m, ang)
+    aplicaTransformacao(poligono, m)
     

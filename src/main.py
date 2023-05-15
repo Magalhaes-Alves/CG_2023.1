@@ -68,10 +68,7 @@ colors = [(255,0,0),
           (255,0,100)
           ]
 
-print(pol2.points)
-m = criaTransformacao()
-m = compoeRotacao(m,2)
-aplicaTransformacao(pol2, m)
+escala(pol2,2,2)
 print(pol2.points)
 
 pol2.desenhaPoligono(janela,(255,255,255,255))
