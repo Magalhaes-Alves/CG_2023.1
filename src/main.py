@@ -68,13 +68,29 @@ colors = [(255,0,0),
           (255,0,100)
           ]
 
-print(pol2.points)
+pol2.scanlineInterpolacao(janela,colors)
+
+"""print(pol2.points)
 m = criaTransformacao()
 m = compoeRotacao(m,2)
 aplicaTransformacao(pol2, m)
 print(pol2.points)
 
 pol2.desenhaPoligono(janela,(255,255,255,255))
-pol2.scanlineInterpolacao(janela,colors)
+pol2.scanlineInterpolacao(janela,colors) """
 
+
+
+
+#Teste texture
+
+""" i=10
+pol_texture = Polygon([[10*i,10*i],
+                       [30*i,10*i],
+                       [30*i,30*i],
+                       [10*i,30*i]
+                       ])
+pol_texture.desenhaPoligono(janela,(255,0,0,255))
+
+pol_texture.addTexture("img/gato.jpg") """
 janela.show()

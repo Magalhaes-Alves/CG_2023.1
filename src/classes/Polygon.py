@@ -1,4 +1,6 @@
 import numpy as np
+from PIL import Image
+import os
 
 class Polygon:
     
@@ -8,10 +10,16 @@ class Polygon:
         else:
             self._points = np.array(matrix)
 
+        self._texture =None
+    
+    @property
+    def texture(self):
+        return self._texture    
+    
     @property
     def points(self):
         return self._points
-
+    
     @points.setter
     def points(self, matrix):
         self._points = np.array(matrix)
@@ -22,6 +30,16 @@ class Polygon:
 
     def addPoints(self, matrix):
         self._points = np.concatenate([self._points, matrix], axis=0)
+
+    def addTexture(self, path_to_texture):
+        
+        path_to_texture= os.path.join(os.path.dirname(__file__),"..",path_to_texture)
+
+        path_to_texture = os.path.realpath(path_to_texture)
+        print(path_to_texture)
+
+        self._texture= np.array(Image.open(path_to_texture)) 
+                
 
     def desenhaPoligono(self, janela, color):
         rows = self.points.shape[0]
