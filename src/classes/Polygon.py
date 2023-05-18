@@ -1,21 +1,26 @@
 import numpy as np
 from PIL import Image
-import os
+from classes.texture import Texture
 
 class Polygon:
     
-    def __init__(self, matrix=None):
+    def __init__(self, matrix=None,texture=None):
         if matrix is None:
             self._points = np.empty((0,2), int)
         else:
             self._points = np.array(matrix)
 
-        self._texture =None
+        if texture is not None:
+            self._texture = Texture(texture)
     
     @property
     def texture(self):
-        return self._texture    
+        return self._texture
     
+    @texture.setter
+    def texture(self,path_to_texture):
+        self._texture = Texture(path_to_texture)
+        
     @property
     def points(self):
         return self._points
@@ -31,15 +36,8 @@ class Polygon:
     def addPoints(self, matrix):
         self._points = np.concatenate([self._points, matrix], axis=0)
 
-    def addTexture(self, path_to_texture):
-        
-        path_to_texture= os.path.join(os.path.dirname(__file__),"..",path_to_texture)
-
-        path_to_texture = os.path.realpath(path_to_texture)
-        print(path_to_texture)
-
-        self._texture= np.array(Image.open(path_to_texture)) 
-                
+    def getPixelTexture(self,x,y):
+        return self.texture.getPixel(x,y)
 
     def desenhaPoligono(self, janela, color):
         rows = self.points.shape[0]

@@ -53,7 +53,7 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 
 #pol1.scanlineInterpolacao(janela,colors)
 
-pol2 = Polygon([
+""" pol2 = Polygon([
         [250,250],
         [300,300],
         [350,250],
@@ -68,7 +68,7 @@ colors = [(255,0,0),
           (255,0,100)
           ]
 
-pol2.scanlineInterpolacao(janela,colors)
+pol2.scanlineInterpolacao(janela,colors) """
 
 """print(pol2.points)
 m = criaTransformacao()
@@ -84,7 +84,7 @@ pol2.scanlineInterpolacao(janela,colors) """
 
 #Teste texture
 
-""" i=10
+i=10
 pol_texture = Polygon([[10*i,10*i],
                        [30*i,10*i],
                        [30*i,30*i],
@@ -92,5 +92,7 @@ pol_texture = Polygon([[10*i,10*i],
                        ])
 pol_texture.desenhaPoligono(janela,(255,0,0,255))
 
-pol_texture.addTexture("img/gato.jpg") """
+pol_texture.texture ="img/gato.jpg"
+print(pol_texture.texture)
+print(pol_texture.getPixelTexture(0.5,0.5))
 janela.show()
