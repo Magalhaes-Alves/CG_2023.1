@@ -91,9 +91,9 @@ pol_texture = Polygon([[10*i,10*i],
                        [10*i,30*i]]
                        )
 pol_texture.textureCoordenates= [[0,0],
-                                [0,1],
+                                [1,0],
                                 [1,1],
-                                [1,0]
+                                [0,1]
                                 ]
 
 pol_texture.desenhaPoligono(janela,(255,0,0,255))
