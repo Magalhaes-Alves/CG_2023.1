@@ -19,7 +19,7 @@ def compoeEscala(m, sx, sy):
 
 def compoeRotacao(m, ang):
     ang = ang*np.pi/180
-    print(np.cos(ang))
+   
     matrix = [[np.cos(ang),-np.sin(ang),0], [np.sin(ang),np.cos(ang),0], [0,0,1]]
     matrix = np.array(matrix)
 
@@ -37,4 +37,39 @@ def aplicaTransformacao(poligono, m):
         pt = np.transpose(pt)
      
         poligono.points[i] = pt[:2]
+
+def translacao(pol, tx, ty):
+    m = criaTransformacao()
+    m = compoeTranslacao(m, tx, ty)
+    aplicaTransformacao(pol, m)
+
+def escala(pol, sx, sy):
+    # Move o primeiro ponto do poligono para o ponto (0,0)
+    dx = pol.points[0,0]
+    dy = pol.points[0,1]
+    translacao(pol, -dx, -dy)
+
+    # Aplica escala
+    m = criaTransformacao()
+    m = compoeEscala(m, sx, sy)
+    aplicaTransformacao(pol, m)
+
+    # Retorna o primeiro ponto do poligono ao ponto original
+    translacao(pol, dx, dy)
+
+def rotacao(pol, ang):
     
+    x_centro_poligono = int(np.mean(pol.points[:,0]))
+    y_centro_poligono = int(np.mean(pol.points[:,1]))
+    
+    # Aplica  rotação
+    m = criaTransformacao()
+    m = compoeRotacao(m, ang)
+    aplicaTransformacao(pol, m)
+
+    # Translada o novo centro para o centro original
+    x_centro_poligono2 = int(np.mean(pol.points[:,0]))
+    y_centro_poligono2 = int(np.mean(pol.points[:,1]))
+    delta_x = x_centro_poligono2 - x_centro_poligono
+    delta_y = y_centro_poligono2 - y_centro_poligono
+    translacao(pol, -delta_x, -delta_y)
