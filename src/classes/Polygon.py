@@ -208,7 +208,7 @@ class Polygon:
             if xi >=0:
                 i +=[xi]
 
-            print(y,i,ymin,ymax)
+            #print(y,i,ymin,ymax)
             for pi in range(0,len(i),2):
                 window.bresenham(i[pi],y,i[pi+1],y,color)
         
@@ -264,8 +264,8 @@ class Polygon:
             pf = self.points[0]
             t,xi = self.intersection(y,[pi,pf])
 
-            print(t,xi)
-            print(i)
+            #print(t,xi)
+            #print(i)
             if xi >=0 and pi[1]<=pf[1]:
                 color = self.colorInterpolation(colors[-1],colors[0],t) # Inverti os indices
                 i+=[[xi,color]]

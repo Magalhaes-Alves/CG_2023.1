@@ -55,7 +55,10 @@ janela.ddaLine(10, 10, 90, 200, (255, 255, 255))
 
 pol2 = Polygon([
         [250,250],
-        [150,250]
+        [300,300],
+        [350,250],
+        [350,350],
+        [250,350]
         ])
 
 colors = [(255,0,0),
@@ -65,19 +68,13 @@ colors = [(255,0,0),
           (255,0,100)
           ]
 
-pol2.scanlineInterpolacao(janela,colors)
-
-print(pol2.points)
-m = criaTransformacao()
-m = compoeRotacao(m,40)
-aplicaTransformacao(pol2, m)
-print(pol2.points)
+rotacao(pol2, 45, 500, 500)
 
 pol2.desenhaPoligono(janela,(255,255,255,255))
 pol2.scanlineInterpolacao(janela,colors) 
 
-
-
+print("Pontos do polígono após a rotação:")
+print(pol2.points)
 
 #Teste texture
 

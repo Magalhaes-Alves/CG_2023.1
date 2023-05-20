@@ -57,11 +57,19 @@ def escala(pol, sx, sy):
     # Retorna o primeiro ponto do poligono ao ponto original
     translacao(pol, dx, dy)
 
-def rotacao(pol, ang):
+def rotacao(pol, ang, altura,largura):
     
+    centro_x = int(largura/2)
+    centro_y = int(altura/2)
     x_centro_poligono = int(np.mean(pol.points[:,0]))
     y_centro_poligono = int(np.mean(pol.points[:,1]))
     
+    tx = centro_x - x_centro_poligono
+    ty = centro_y - y_centro_poligono
+
+    #Transladar o centro do poligono para o centro da janela
+    translacao(pol, tx, ty)
+
     # Aplica  rotação
     m = criaTransformacao()
     m = compoeRotacao(m, ang)

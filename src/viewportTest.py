@@ -23,10 +23,8 @@ def animacao():
     
     
     #cria matriz de rotacao de 2 graus
-    m = criaTransformacao()
-    m = compoeTranslacao(m,-50,-50)
-    m = compoeRotacao(m,45)
-    m= compoeTranslacao(m,50,50)
+    
+    rotacao(p,3)
 
     window = Window(v[0],v[1])
     
