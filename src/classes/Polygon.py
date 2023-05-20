@@ -12,7 +12,7 @@ class Polygon:
 
         if texture is not None and texture_coordenates is not None:
             self._texture = Texture(texture)
-            self._texture_coordenates = texture_coordenates
+            self._texture_coordenates = np.array(texture_coordenates)
     
     @property
     def textureCoordenates(self):
@@ -20,7 +20,7 @@ class Polygon:
 
     @textureCoordenates.setter
     def textureCoordenates(self,coordenates):
-        self._texture_coordenates =coordenates
+        self._texture_coordenates =np.array(coordenates)
 
     @property
     def texture(self):
@@ -38,15 +38,37 @@ class Polygon:
     def points(self, matrix):
         self._points = np.array(matrix)
 
-    def addPoint(self, x, y):
+    def addPoint(self, x, y,tx=None,ty=None):
+
+        has_texture = not((self.texture is None) or (tx is None) or (ty is None))
+
+        if not(has_texture):
+            raise ValueError("Adicione uma textura ou coordenadas de textura válidas")
+        else:
+            texture = np.array([[tx,ty]])
+            self.textureCoordenates= np.concatenate([self.textureCoordenates,texture])
+
         point = np.array([[x,y]])
         self._points =  np.concatenate([self._points, point], axis=0)
+
+        
 
     def addPoints(self, matrix):
         self._points = np.concatenate([self._points, matrix], axis=0)
 
     def getPixelTexture(self,x,y):
         return self.texture.getPixel(x,y)
+    
+    def delPoint(self,index_point):
+        self.points =np.delete(self.points,index_point)
+        
+        if self.texture is not None:
+            self.textureCoordenates = np.delete(self.textureCoordenates,index_point)
+
+    def showPoints(self):
+        print(self.points)
+        if self.texture is not None:
+            print(self.textureCoordenates)
 
     def desenhaPoligono(self, janela, color):
         rows = self.points.shape[0]

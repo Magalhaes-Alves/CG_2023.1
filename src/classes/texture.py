@@ -14,7 +14,6 @@ class Texture:
         path_to_texture= os.path.join(os.path.dirname(__file__),"..",path_to_texture)
 
         path_to_texture = os.path.realpath(path_to_texture)
-        print(path_to_texture)
 
         self._texture= np.array(Image.open(path_to_texture)) 
 
