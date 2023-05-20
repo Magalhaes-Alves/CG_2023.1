@@ -4,7 +4,11 @@ from math import floor
 
 class Window:
 
-    def __init__(self,width,height,title):
+    def __init__(self,width,height,title=None):
+        
+        if title is None:
+            title = "Trabalho 1 CG"
+        
         pygame.init()
         pygame.display.set_caption(title)
         self._screen = pygame.display.set_mode((width,height))
@@ -275,8 +279,7 @@ class Window:
                 if event.type == pygame.QUIT:
                     return
             pygame.display.update()
-
-
+        
 
     
 
