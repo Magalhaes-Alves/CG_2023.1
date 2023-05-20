@@ -141,7 +141,6 @@ class Polygon:
             if pint[0] >=0:
                 i.append(pint)
             i.sort(key= lambda x:x[0])
-
             for pi in range(0,len(i),2):
                 p1=i[pi]
                 p2=i[pi+1]
@@ -166,7 +165,6 @@ class Polygon:
 
         xf = edge[1][0]
         yf= edge[1][1]
-
         if yi ==yf:
             return [-1,-1]
         
@@ -239,7 +237,7 @@ class Polygon:
         
         #Faz a verificação das cores
         if colors is not None and len(colors)!= self.points.shape[0]:
-            print("O numéro de cores não é o mesmo que de pontos.")
+            print("O numero de cores não é o mesmo que de pontos.")
             return
 
 
@@ -266,6 +264,8 @@ class Polygon:
             pf = self.points[0]
             t,xi = self.intersection(y,[pi,pf])
 
+            print(t,xi)
+            print(i)
             if xi >=0 and pi[1]<=pf[1]:
                 color = self.colorInterpolation(colors[-1],colors[0],t) # Inverti os indices
                 i+=[[xi,color]]
@@ -274,7 +274,6 @@ class Polygon:
                 i+=[[xi,color]]
             
             i.sort(key= lambda x:x[0])
-
             for pi in range(0,len(i),2):
                 xi,icolor=i[pi]
                 xf,fcolor=i[pi+1]
