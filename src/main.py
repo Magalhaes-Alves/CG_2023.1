@@ -88,11 +88,19 @@ i=10
 pol_texture = Polygon([[10*i,10*i],
                        [30*i,10*i],
                        [30*i,30*i],
-                       [10*i,30*i]
-                       ])
+                       [10*i,30*i]]
+                       )
+pol_texture.textureCoordenates= [[0,0],
+                                [0,1],
+                                [1,1],
+                                [1,0]
+                                ]
+
 pol_texture.desenhaPoligono(janela,(255,0,0,255))
 
 pol_texture.texture ="img/gato.jpg"
 print(pol_texture.texture)
 print(pol_texture.getPixelTexture(0.5,0.5))
+
+pol_texture.scanlineT(janela)
 janela.show()
