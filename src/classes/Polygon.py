@@ -209,7 +209,7 @@ class Polygon:
             if xi >=0:
                 i +=[xi]
 
-            #print(y,i,ymin,ymax)
+            i.sort(key=lambda x:x)
             for pi in range(0,len(i),2):
                 window.bresenham(i[pi],y,i[pi+1],y,color)
         
