@@ -10,7 +10,7 @@ def mapWindow(poli, window, viweport):
     xf = window[2]
     yf= window[3]
 
-    m= [[lv/(xf-xi), 0,1-xi*lv(xf-xi)],
+    m= [[lv/(xf-xi), 0,1-xi*lv/(xf-xi)],
         [0,av/(yf-yi),1-yi*av/(yf-yi)],
         [0,0,1]
     ]
