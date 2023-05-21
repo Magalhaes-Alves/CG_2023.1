@@ -3,6 +3,7 @@ from classes.viewport import *
 from classes.Tranformations import *
 from classes.Window import Window
 from time import sleep
+import pygame
 
 def animacao():
   
@@ -29,14 +30,18 @@ def animacao():
     rotacao(p, 2,200,300)
     print(p.points)
 
-    while (True):
+    while(True):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            
     
-        window
-
+        window.screen.fill((0,0,0))
         p.scanlineT(window)
         
         rotacao(p,2,200,300)
-        window.show()
+        
+        pygame.display.update()
 
 if __name__=="__main__":
     animacao()

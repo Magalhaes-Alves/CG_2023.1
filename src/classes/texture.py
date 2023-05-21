@@ -52,8 +52,8 @@ class Texture:
         y = 1 if y > 1 else y
         y = 0 if y<0 else y
         
-        x = round(x*self._width)
-        y = round(y*self._height)
+        x = round(x*(self._width-1))
+        y = round(y*(self._height-1))
 
         return self._texture[y][x]
         

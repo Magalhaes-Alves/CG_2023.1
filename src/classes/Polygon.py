@@ -151,7 +151,6 @@ class Polygon:
                     tx = p1[2] + t*(p2[2]-p1[2])
                     ty =p1[3] + t*(p2[3]-p1[3])
                     
-                    print("Tx:{} e Ty:{}".format(tx,ty))
                     color = self.texture.getPixel(tx,ty)
                     window.setPixel(xk,y,color)
                     
