@@ -185,8 +185,7 @@ class Polygon:
             color = list(r)
         else:
             color = list(r, g, b,alpha)
-        print("Pontos:")
-        print(self.points)
+        
         ymin = min(self.points[:,1])
 
         ymax = max(self.points[:,1])
