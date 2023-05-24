@@ -1,5 +1,5 @@
 import numpy as np
-from classes.texture import Texture
+from texture import Texture
 
 class Polygon:
     
@@ -208,7 +208,6 @@ class Polygon:
             _,xi = self.intersection(y,[pi,pf])
             if xi >=0:
                 i +=[xi]
-
             i.sort(key=lambda x:x)
             for pi in range(0,len(i),2):
                 window.bresenham(i[pi],y,i[pi+1],y,color)

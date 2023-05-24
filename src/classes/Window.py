@@ -206,7 +206,7 @@ class Window:
 
         p=5/4-ray
 
-        while(x<y):
+        while(x<=y):
             self.setPixel(x+xc,y+yc,color)
             self.setPixel(y+xc,x+yc,color)
             self.setPixel(y+xc,-x+yc,color)
