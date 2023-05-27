@@ -4,29 +4,48 @@ import pygame
 from random import randint
 from nave import Nave
 
-
-
-
-
 def apresentation():
 
+    estrelas =[]
 
     janela = Window(800,600)
-
-    polygons =[]
-
-    elipses =[]
-
-    circles =[]
-
-
+    time=0
     while(True):
-    
+        time+=1
+        time = 0 if time>10 else time
+        janela.screen.fill((0,0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
             elif event.type == pygame.K_SPACE:
                 break
+        
+        for i in estrelas:
+            
+            i[1]-=10
+
+        fora_tela =[]
+        for k,v in enumerate(estrelas):
+            
+            if v[1]+v[2]<0:
+                 fora_tela.append(k)
+
+        for i in reversed(fora_tela):
+             estrelas.pop(i)
+
+        if len(estrelas)<60 and time==10:
+            xc = randint(21,janela.width-10)
+
+            yc= janela.height-21
+            
+            estrelas.append([xc,yc,20,5])
+        #print(estrelas)
+        for i in estrelas:
+             p = Polygon(starCreator(i[0],i[1],20,5))
+             p.scanline(janela,(255,255,255))
+
+                  
+
 
         """ r = randint(40,80)
         xc = randint(0,janela.width)
@@ -60,7 +79,7 @@ def apresentation():
 
 
         # Letra O
-        xc,yc = 200,100
+        """ xc,yc = 200,100
 
         janela.drawEllipse(xc,yc,30,40,(255,255,255))
         janela.floodFill(xc,yc,(255,255,255),(0,0,0))
@@ -91,16 +110,23 @@ def apresentation():
         p.scanline(janela,(255,255,255))
         
         p= Nave(390,120,3)
-        p.scanline(janela,(255,255,255))
+        p.scanline(janela,(255,255,255)) """
         
 
         pygame.display.update()
-        pygame.time.delay(5000)
     
 
 
+def planeta(window,xc,yc,r):
+     
+     window.drawCircle(xc,yc,r,(255,0,0))
+     window.floodFill(xc,yc,(255,0,0),(0,0,0))
 
-def estrela(xc,yc,dmaior,dmenor):
+
+     
+     
+
+def starCreator(xc,yc,dmaior,dmenor):
     p = [[xc,yc-dmaior],
          [xc+int(dmenor),yc-int(dmenor)],
         [xc+dmaior,yc],
