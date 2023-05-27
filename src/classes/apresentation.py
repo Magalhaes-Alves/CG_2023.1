@@ -20,12 +20,16 @@ def apresentation():
         time_planeta+=1
         time_planeta = 0 if time_planeta>40 else time_planeta
         janela.screen.fill((0,0,0))
+        
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            elif event.type == pygame.K_SPACE:
-                break
-        
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    pygame.display.quit()
+                    return
+            
         for i in estrelas:
             i.centro=[i.centro[0],i.centro[1]-10]
         
@@ -73,36 +77,18 @@ def apresentation():
              planeta(janela,i[0],i[1],i[2])
 
 
-        """ r = randint(40,80)
-        xc = randint(0,janela.width)
-        yc = randint(0,janela.height)
-
-        xc = xc-(xc +r-janela.width-1) if xc +r>= janela.width else xc
-        xc = xc+abs(xc-r) if xc -r< 0 else xc
-
-        yc = yc -(yc+r- janela.height-1)if yc +r>= janela.height else yc
-        yc = yc + abs(yc-r)if yc -r<0 else yc
-
-        circles.append([xc,yc,r])
-        janela.drawCircle(xc,yc,r,(255,255,255))
-        print(circles)
-        pygame.display.update()
-        pygame.time.delay(3000)
-        janela.floodFill(xc,yc,(255,255,255),(0,0,0))
-        pygame.display.update()
-
-        if len(circles) >0 and randint(0,3)==1:
-            c = circles.pop(0)
-            janela.floodFill(c[0],c[1],(0,0,0),(255,255,255))  """
+        start = Polygon([[300,500],
+                         [500,500],
+                         [500,550],
+                         [300,550]
+                         ])
         
-        """ xc =randint(0,janela.width)
-        yc = randint(0,janela.height)
-
-             
-        p = Polygon(estrela(xc,yc,20,5))
-        p.scanline(janela,(255,255,255)) """
-
-
+        start.texture = "classes/enter-crop.jpg"
+        start.textureCoordenates= [[0,0],
+                                   [1,0],
+                                   [1,1],
+                                   [0,1]]
+        start.scanlineT(janela)
 
         # Letra O
         """ xc,yc = 200,100
