@@ -3,16 +3,22 @@ from Window import Window
 import pygame
 from random import randint
 from nave import Nave
+from estrela import estrela
 
 def apresentation():
 
     estrelas =[]
+    planetas =[]
 
     janela = Window(800,600)
-    time=0
+    time_estrela=0
+    time_planeta =0
     while(True):
-        time+=1
-        time = 0 if time>10 else time
+        time_estrela+=1
+        time_estrela = 0 if time_estrela>10 else time_estrela
+
+        time_planeta+=1
+        time_planeta = 0 if time_planeta>40 else time_planeta
         janela.screen.fill((0,0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -21,30 +27,50 @@ def apresentation():
                 break
         
         for i in estrelas:
-            
-            i[1]-=10
-
+            i.centro=[i.centro[0],i.centro[1]-10]
+        
         fora_tela =[]
         for k,v in enumerate(estrelas):
             
-            if v[1]+v[2]<0:
+            if v.centro[1]+v.distancias[0]<0:
                  fora_tela.append(k)
 
         for i in reversed(fora_tela):
              estrelas.pop(i)
 
-        if len(estrelas)<60 and time==10:
+        if len(estrelas)<60 and time_estrela==10:
             xc = randint(21,janela.width-10)
 
             yc= janela.height-21
             
-            estrelas.append([xc,yc,20,5])
-        #print(estrelas)
-        for i in estrelas:
-             p = Polygon(starCreator(i[0],i[1],20,5))
-             p.scanline(janela,(255,255,255))
+            estrelas.append(estrela(xc,yc,20,5))
 
-                  
+        for i in estrelas:
+             i.scanline(janela,(255,255,255))
+
+        
+        for i in planetas:
+            i[1]-=5
+        
+        fora_tela =[]
+        for k,v in enumerate(planetas):
+            
+            if v[1]+v[2]<0:
+                 fora_tela.append(k)
+
+        for i in reversed(fora_tela):
+             planetas.pop(i)
+        
+        if len(planetas)<10 and len(estrelas)<60 and time_planeta ==40:
+            xc = randint(21,janela.width-10)
+
+            yc= janela.height-21
+            r = randint(5,15)
+            planetas.append([xc,yc,r])
+            planeta(janela,xc,yc,r)
+
+        for i in planetas:
+             planeta(janela,i[0],i[1],i[2])
 
 
         """ r = randint(40,80)
@@ -119,22 +145,24 @@ def apresentation():
 
 def planeta(window,xc,yc,r):
      
-     window.drawCircle(xc,yc,r,(255,0,0))
+     window.drawCircle(xc,yc,r,(0,0,255))
      window.floodFill(xc,yc,(255,0,0),(0,0,0))
+
+     window.drawCircle(xc,yc-r>>1,r>>1,(0,0,255))
+     window.floodFill(xc+(r>>1),yc-(r>>1),(0,0,255),(255,0,0))
+
+     window.bresenham(xc-r,yc,xc+r,yc,(0,120,250))
+     window.bresenham(xc-r,yc-2,xc+r,yc-2,(0,120,250))
+     
+
+
 
 
      
      
 
 def starCreator(xc,yc,dmaior,dmenor):
-    p = [[xc,yc-dmaior],
-         [xc+int(dmenor),yc-int(dmenor)],
-        [xc+dmaior,yc],
-        [xc+int(dmenor),yc+int(dmenor)],
-        [xc,yc+dmaior],
-        [xc-int(dmenor),yc+int(dmenor)],
-        [xc-dmaior,yc],
-        [xc-int(dmenor),yc-int(dmenor)],]   
+       
     return p
 
 
