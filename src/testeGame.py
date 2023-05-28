@@ -70,7 +70,10 @@ def game():
 
         nave_jogo = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
         mapWindow(nave_jogo,janela_teorica,janela)
-        nave_jogo.scanline(janela,(255,0,0,255))
+        nave_jogo.scanlineInterpolacao(janela, [[0,0,255],
+                                                [255,255,255],
+                                                [255,255,255],
+                                                [255,255,255]])
 
         # Clipping balas
         for i, bala in enumerate(bullets_real):
@@ -90,12 +93,16 @@ def game():
         for i, asteroid in enumerate(asteroids_real):
             subject_polygon = asteroid.points
             
-            asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
+            asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon),"classes/lua.jpg",[[0,0],[1,0],[1,1],[0,1]])
             
             #Verifica se o asteroid está dentro da janela
             if len(asteroids_janela[i].points)>0:
                 mapWindow(asteroids_janela[i], janela_teorica, janela)
-                asteroids_janela[i].scanline(janela,(255,0,0,255))
+                
+                if len(asteroids_janela[i].points)==5:
+                    asteroids_janela[i].textureCoordenates = [[0,0],[1,0],[1,1],[0,1],[0,0]]
+
+                asteroids_janela[i].scanlineT(janela)
 
             colision = clipp_polygon(subject_polygon, nave_real.points)
             if len(colision)>0:
@@ -111,7 +118,7 @@ def game():
                 translacao(janela_teorica_polygon, (centro_x - centro_x_novo), (centro_y - centro_y_novo))
 
 
-                print(janela_teorica_polygon.points)
+                
                 janela_teorica = [janela_teorica_polygon.points[0,0], janela_teorica_polygon.points[0,1],
                                   janela_teorica_polygon.points[2,0], janela_teorica_polygon.points[2,1]]
                 
@@ -120,14 +127,22 @@ def game():
                 subject_polygon = nave_real.points
                 nave_jogo = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
                 
+
+                """ game_over = Polygon([[430,365],
+                                     [570,365],
+                                     [550,380],
+                                     [430,380]
+                                     ],"classes/game-over.png",[[0,0],[1,0],[1,1],[0,1]])
                 
+                mapWindow(game_over,janela_teorica,janela)
+                game_over.scanlineT(janela) """
                 janela.screen.fill((0,0,0))
 
-                print(nave_jogo.points)
-                print("-------------------------")
                 mapWindow(nave_jogo,janela_teorica,janela)
-                print(nave_jogo.points)
-                nave_jogo.scanline(janela,(255,0,0,255))
+                nave_jogo.scanlineInterpolacao(janela, [[0,0,255],
+                                                [255,255,255],
+                                                [255,255,255],
+                                                [255,255,255]])                
                 Rodando = False
                 
 

@@ -40,7 +40,6 @@ class Window:
         y = 0 if y<0 else y
         x= self.width-1 if x>=self.width else x
         y = self.height-1 if y>=self.height else y
-
         pygame.gfxdraw.pixel(self.screen,x,y,color)
 
     def getPixel(self, x, y):
