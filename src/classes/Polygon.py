@@ -1,5 +1,5 @@
 import numpy as np
-from texture import Texture
+from classes.texture import Texture
 
 class Polygon:
     
@@ -13,6 +13,7 @@ class Polygon:
         if texture is not None and texture_coordenates is not None:
             self._texture = Texture(texture)
             self._texture_coordenates = np.array(texture_coordenates)
+        
     
     @property
     def textureCoordenates(self):
