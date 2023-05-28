@@ -16,25 +16,25 @@ class Bullet (Polygon):
             p2 = (cx + 1,cy+23)
             p3 = (cx + 1,cy+27)
             p4 = (cx - 1,cy+27)
-            velocidade = (0,2)
+            velocidade = (0,1)
         if direcao == DIREITA:
             p1 = (cx + 12,cy+3)
             p2 = (cx + 16,cy+3)
             p3 = (cx + 16,cy+5)
             p4 = (cx + 12,cy+5)
-            velocidade = (2,0)
+            velocidade = (1,0)
         if direcao == ESQUERDA:
             p1 = (cx - 12,cy+3)
             p2 = (cx - 16,cy+3)
             p3 = (cx - 16,cy+5)
             p4 = (cx - 12,cy+5)
-            velocidade = (-2,0)
+            velocidade = (-1,0)
         if direcao == CIMA:
             p1 = (cx - 1,cy-23)
             p2 = (cx + 1,cy-23)
             p3 = (cx + 1,cy-27)
             p4 = (cx - 1,cy-27)
-            velocidade = (0,-2)
+            velocidade = (0,-1)
 
         self._velocidade = velocidade
         super().__init__([p1,p2,p3,p4])

@@ -5,6 +5,8 @@ from classes.viewport import mapWindow
 from classes.clipping import clip
 import numpy as np
 from classes.Polygon import Polygon
+from classes.asteroids import Asteroids
+from classes.Tranformations import escala, translacao
 import time
 
 def clipp_polygon(subject_polygon, clipping_polygon):
@@ -21,25 +23,32 @@ def game():
     janela_teorica = [300,300,700,500]
 
     nave_real = Nave((janela_teorica[0]+janela_teorica[2])//2, (janela_teorica[1]+janela_teorica[3])//2,10)
-
+    
     asteroids_real = []
     asteroids_janela = []
     bullets_real = []
     bullets_janela = []
     naves =[]
     
-    intervalo_tempo = 15  # Intervalo de tempo em segundos
-    tempo_anterior = (time.time() - 15) # Fazendo isso para gerar asteroids na primeira iteração
-    
-    while(True):
+    intervalo_tempo = 3  # Intervalo de tempo em segundos
+    tempo_anterior = (time.time() - 10) # Fazendo isso para gerar asteroids na primeira iteração
+    direcao = 2
+    Rodando = True
+    while(Rodando):
         tempo_atual = time.time()
     
         if tempo_atual - tempo_anterior >= intervalo_tempo:
-            # Gera asteroids
-            print("Comando executado após o intervalo de tempo")
-        
+            # Gera asteroids            
             tempo_anterior = tempo_atual
+            asteroid = Asteroids((janela_teorica[0]+janela_teorica[2])//2, (janela_teorica[1]+janela_teorica[3])//2, direcao, janela_teorica)
+            asteroids_real.append(asteroid)
+            asteroids_janela.append(asteroid)
+            direcao +=1
+            if direcao > 3:
+                direcao = 0
+        
         janela.screen.fill((0,0,0))
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -80,18 +89,76 @@ def game():
         # Clipping asteroids
         for i, asteroid in enumerate(asteroids_real):
             subject_polygon = asteroid.points
-
-            asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
-            mapWindow(asteroids_janela[i], janela_teorica, janela)
-            asteroids_janela[i].scanline(janela,(255,0,0,255))
-
-            asteroid.movimentar()
             
-            """if asteroid.dentro_janela(janela_teorica) == False:
-                asteroids_real.pop(i)
-                asteroids_janela.pop(i)"""
+            asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
+            
+            #Verifica se o asteroid está dentro da janela
+            if len(asteroids_janela[i].points)>0:
+                mapWindow(asteroids_janela[i], janela_teorica, janela)
+                asteroids_janela[i].scanline(janela,(255,0,0,255))
+
+            colision = clipp_polygon(subject_polygon, nave_real.points)
+            if len(colision)>0:
+                janela_teorica_polygon = Polygon(clipping_polygon)
+                sx = 0.4
+                sy = 0.4
+                
+                escala(janela_teorica_polygon, sx, sy)
+                centro_x = (janela_teorica[2] + janela_teorica[0])//2
+                centro_y = (janela_teorica[3] + janela_teorica[1])//2
+                centro_x_novo = (janela_teorica_polygon.points[0,0] + janela_teorica_polygon.points[2,0])//2
+                centro_y_novo = (janela_teorica_polygon.points[0,1] + janela_teorica_polygon.points[2,1])//2
+                translacao(janela_teorica_polygon, (centro_x - centro_x_novo), (centro_y - centro_y_novo))
+
+
+                print(janela_teorica_polygon.points)
+                janela_teorica = [janela_teorica_polygon.points[0,0], janela_teorica_polygon.points[0,1],
+                                  janela_teorica_polygon.points[2,0], janela_teorica_polygon.points[2,1]]
+                
+                clipping_polygon = [(janela_teorica[0],janela_teorica[1]),(janela_teorica[2],janela_teorica[1]),
+                            (janela_teorica[2],janela_teorica[3]),(janela_teorica[0],janela_teorica[3])]
+                subject_polygon = nave_real.points
+                nave_jogo = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
+                
+                
+                janela.screen.fill((0,0,0))
+
+                print(nave_jogo.points)
+                print("-------------------------")
+                mapWindow(nave_jogo,janela_teorica,janela)
+                print(nave_jogo.points)
+                nave_jogo.scanline(janela,(255,0,0,255))
+                Rodando = False
+                
+
+            asteroid.movimentar()            
+
+        """
+        Seção para verificar se há colisão entre algum asteroid e as balas e/ou nave
+        """
+        # Entre asteroids e balas
+        for i, asteroid in enumerate(asteroids_real):
+            for j, bala in enumerate(bullets_real):
+                colision = clipp_polygon(bala.points, asteroid.points)
+                if len(colision)>0:
+                    bullets_real.pop(j)
+                    bullets_janela.pop(j)
+                    asteroids_real.pop(i)
+                    asteroids_janela.pop(i)
 
         pygame.display.update()
+
+    while(True):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    nave_real.rotacionar(False,window.width,window.height)
+                elif event.key == pygame.K_RIGHT:
+                    nave_real.rotacionar(True,window.width,window.height)
+                elif event.key == pygame.K_SPACE:
+                    nave_real.atirar(bullets_real, bullets_janela) 
 
 
 if __name__=="__main__":
