@@ -1,5 +1,5 @@
 from classes.apresentation import apresentation
-from testeGame import game
+from game import game
 
 
 
