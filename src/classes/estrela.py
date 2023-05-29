@@ -1,4 +1,4 @@
-from Polygon import Polygon
+from classes.Polygon import Polygon
 
 class estrela (Polygon):
 

@@ -140,23 +140,24 @@ def game():
                 for j, bala in enumerate(bullets_real):
                     subject_polygon = bala.points
 
-                    bullets_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
-                    mapWindow(bullets_janela[i], janela_teorica, janela)
-                    bullets_janela[i].scanline(janela,(255,0,0,255))
+                    bullets_janela[j] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
+                    if len(bullets_janela[j].points)>0:
+                        mapWindow(bullets_janela[i], janela_teorica, janela)
+                        bullets_janela[j].scanline(janela,(255,0,0,255))
                 
                 for j, asteroid in enumerate(asteroids_real):
                     subject_polygon = asteroid.points
                     
-                    asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon),"classes/lua.jpg",[[0,0],[1,0],[1,1],[0,1]])
+                    asteroids_janela[j] = Polygon(clipp_polygon(subject_polygon, clipping_polygon),"classes/lua.jpg",[[0,0],[1,0],[1,1],[0,1]])
                     
                     #Verifica se o asteroid está dentro da janela
-                    if len(asteroids_janela[i].points)>0:
-                        mapWindow(asteroids_janela[i], janela_teorica, janela)
+                    if len(asteroids_janela[j].points)>0:
+                        mapWindow(asteroids_janela[j], janela_teorica, janela)
                         
-                        if len(asteroids_janela[i].points)==5:
-                            asteroids_janela[i].textureCoordenates = [[0,0],[1,0],[1,1],[0,1],[0,0]]
+                        if len(asteroids_janela[j].points)==5:
+                            asteroids_janela[j].textureCoordenates = [[0,0],[1,0],[1,1],[0,1],[0,0]]
 
-                        asteroids_janela[i].scanlineT(janela)
+                        asteroids_janela[j].scanlineT(janela)
 
                 Rodando = False
                 

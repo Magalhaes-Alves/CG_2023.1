@@ -1,10 +1,9 @@
-from Polygon import Polygon
-from Window import Window
+from classes.Polygon import Polygon
+from classes.Window import Window
 import pygame
 from random import randint
-from nave import Nave
-from estrela import estrela
-from Tranformations import translacao
+from classes.estrela import estrela
+from classes.Tranformations import translacao
 from copy import deepcopy
 
 def apresentation():
