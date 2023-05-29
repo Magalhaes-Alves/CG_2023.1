@@ -210,24 +210,3 @@ def planeta(window,xc,yc,r):
      window.bresenham(xc-r,yc,xc+r,yc,(0,120,250))
      window.bresenham(xc-r,yc-2,xc+r,yc-2,(0,120,250))
      
-
-
-
-
-     
-     
-
-def starCreator(xc,yc,dmaior,dmenor):
-       
-    return p
-
-
-
-if __name__=="__main__":
-        apresentation()
-
-
-
-        
-
-    #game()
