@@ -128,21 +128,36 @@ def game():
                 nave_jogo = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
                 
 
-                """ game_over = Polygon([[430,365],
-                                     [570,365],
-                                     [550,380],
-                                     [430,380]
-                                     ],"classes/game-over.png",[[0,0],[1,0],[1,1],[0,1]])
-                
-                mapWindow(game_over,janela_teorica,janela)
-                game_over.scanlineT(janela) """
                 janela.screen.fill((0,0,0))
-
+                print("nave:",nave_jogo.points)
                 mapWindow(nave_jogo,janela_teorica,janela)
+                print("nave:",nave_jogo.points)
                 nave_jogo.scanlineInterpolacao(janela, [[0,0,255],
                                                 [255,255,255],
                                                 [255,255,255],
                                                 [255,255,255]])                
+                
+                for j, bala in enumerate(bullets_real):
+                    subject_polygon = bala.points
+
+                    bullets_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon))
+                    mapWindow(bullets_janela[i], janela_teorica, janela)
+                    bullets_janela[i].scanline(janela,(255,0,0,255))
+                
+                for j, asteroid in enumerate(asteroids_real):
+                    subject_polygon = asteroid.points
+                    
+                    asteroids_janela[i] = Polygon(clipp_polygon(subject_polygon, clipping_polygon),"classes/lua.jpg",[[0,0],[1,0],[1,1],[0,1]])
+                    
+                    #Verifica se o asteroid está dentro da janela
+                    if len(asteroids_janela[i].points)>0:
+                        mapWindow(asteroids_janela[i], janela_teorica, janela)
+                        
+                        if len(asteroids_janela[i].points)==5:
+                            asteroids_janela[i].textureCoordenates = [[0,0],[1,0],[1,1],[0,1],[0,0]]
+
+                        asteroids_janela[i].scanlineT(janela)
+
                 Rodando = False
                 
 
