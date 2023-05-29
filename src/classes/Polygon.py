@@ -153,6 +153,7 @@ class Polygon:
                     ty =p1[3] + t*(p2[3]-p1[3])
                     
                     color = self.texture.getPixel(tx,ty)
+                    
                     window.setPixel(xk,y,color)
                     
         
