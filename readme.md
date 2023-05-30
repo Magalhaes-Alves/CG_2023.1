@@ -30,4 +30,10 @@ Executar a jogo:
 -Algoritmo FloodFill: Usado para preeencher os circulos e elipses.
 - Algoritmo de Rasterização de reta: Usado para desenhar as estrelas e algumas letras de "meteoros"
 
-
+## Jogo:
+- Polígonos preenchidos com gradientes de cores (definidas por vértice) e texturas coloridas: Nave e meteoro
+- Translação: Meteoro e Tiro 
+- Rotação: Nave
+- Deve ser utilizada pelo menos uma janela, e pelo menos uma viewport: As transformadas de mundo são transformadas para coordenada de dispositivo a partir de uma viewport
+- A qual deve apresentar transformações de translação e escala (zoom): Quando o meteoro atinge a nave, é feito uma 
+escala e uma translação a partir da viewport.
